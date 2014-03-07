@@ -1,0 +1,14 @@
+doctype html
+html(lang='en')
+	head
+		title CORS Upload
+		link(rel='stylesheet', href='http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css')
+		script(src='http://code.jquery.com/jquery-1.10.0.min.js')
+		script(src='http://code.jquery.com/ui/1.10.3/jquery-ui.min.js')
+		script(type='text/javascript', src='/test.js')
+	body
+		form(enctype='multipart/form-data')
+			input(type='file', accept='audio/x-wav')
+			button Go
+
+		div#progressbar
