@@ -16,14 +16,12 @@ $(function () {
 			enabled: true
 		});
 
-		var filename = file.name;
-
 		$.ajax({
 			url: 'sign',
 			type: 'POST',
 			global: true,
 			data: {
-				file: filename
+				file: file.name
 			}
 		}).done(function (signature) {
 			var req = new XMLHttpRequest();
@@ -48,7 +46,7 @@ $(function () {
 			req.open('PUT', signature.url, true);
 			req.setRequestHeader('accept', 'application/json');
 			req.setRequestHeader('access-control-allow-origin', '*');
-			req.setRequestHeader('content-type', 'audio/x-wav');
+			req.setRequestHeader('content-type', file.type);
 			req.send(file);
 		}).fail(function () {
 			alert('failed to create signature for ' + filename);
