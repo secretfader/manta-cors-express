@@ -1,3 +1,10 @@
+/**
+ * manta-cors-express
+ * (C) Copyright 2014 Nicholas Young
+ * Please see the accompanying LICENSE document, or visit
+ * http://github.com/nicholaswyoung/manta-cors/express.
+ */
+
 var fs 		 = require('fs')
 , 	assert  = require('assert')
 , 	express = require('express')
@@ -8,9 +15,7 @@ var fs 		 = require('fs')
 
 client = manta.createClient({
 	sign: manta.privateKeySigner({
-		key: fs.readFileSync(
-			process.env.HOME + '/.ssh/id_rsa', 'utf8'
-		),
+		key: fs.readFileSync(process.env.HOME + '/.ssh/id_rsa', 'utf8'),
 		keyId: process.env.MANTA_KEY_ID,
 		user: process.env.MANTA_USER
 	}),
@@ -21,11 +26,13 @@ client = manta.createClient({
 /**
  * Setup the storage directory, and access control headers.
  */
-options.directory = process.env.MANTA_USER + '/stor/demo';
-options.headers = {
+options.directory = '/' + process.env.MANTA_USER + '/stor/demo';
+options.cors = {
+	headers: {
 		'access-control-allow-headers': 'access-control-allow-origin, accept, origin, content-type',
 		'access-control-allow-methods': 'PUT,GET,HEAD,DELETE',
 		'access-control-allow-origin': '*'
+	}
 };
 
 /**
@@ -49,11 +56,11 @@ app.get('/', function (req, res) {
 
 app.post('/sign', function (req, res, next) {
 	var _options = {
-		expires: new Date().getTime + (3600 * 1000),
+		expires: new Date().getTime() + (3600 * 1000),
 		path: [options.directory, req.param('file')].join('/'),
 		method: ['OPTIONS', 'PUT']
 	};
-	client.signUrl(_options, function (err, signature) {
+	client.signURL(_options, function (err, signature) {
 		if (err) return next(err);
 		res.json({ url: process.env.MANTA_URL + signature });
 	})
@@ -62,7 +69,7 @@ app.post('/sign', function (req, res, next) {
 /**
  * Create storage directory on boot.
  */
-client.mkdirp(options.directory, options, function (err) {
+client.mkdirp(options.directory, options.cors, function (err) {
 	assert.ifError(err);
 	app.listen(3000);
 });
