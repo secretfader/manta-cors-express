@@ -9,6 +9,7 @@ var fs 		 = require('fs')
 , 	assert  = require('assert')
 , 	express = require('express')
 , 	manta 	= require('manta')
+, 	mime 	 = require('mime')
 , 	app 	  = express()
 , 	options = {}
 , 	client;
@@ -58,11 +59,14 @@ app.post('/sign', function (req, res, next) {
 	var _options = {
 		expires: new Date().getTime() + (3600 * 1000),
 		path: [options.directory, req.param('file')].join('/'),
-		method: ['OPTIONS', 'PUT']
+		method: ['OPTIONS', 'PUT', 'GET']
 	};
 	client.signURL(_options, function (err, signature) {
 		if (err) return next(err);
-		res.json({ url: process.env.MANTA_URL + signature });
+		res.json({
+			url: process.env.MANTA_URL + signature,
+			content_type: mime.lookup(req.param('file'))
+		});
 	})
 });
 

@@ -23,7 +23,7 @@ $(function () {
 			data: {
 				file: file.name
 			}
-		}).done(function (signature) {
+		}).done(function (data) {
 			var req = new XMLHttpRequest();
 
 			req.upload.addEventListener('progress', function (e) {
@@ -35,21 +35,21 @@ $(function () {
 
 			req.upload.addEventListener('load', function () {
 				$('#progressbar').progressbar('destroy');
-				alert(filename + ' uploaded');
+				alert(file.name + ' uploaded');
 			});
 
 			req.upload.addEventListener('error', function () {
 				$('#progressbar').progressbar('destroy');
-				alert(filename + ' failed to upload');
+				alert(file.name + ' failed to upload');
 			});
 
-			req.open('PUT', signature.url, true);
+			req.open('PUT', data.url, true);
 			req.setRequestHeader('accept', 'application/json');
 			req.setRequestHeader('access-control-allow-origin', '*');
-			req.setRequestHeader('content-type', file.type);
+			req.setRequestHeader('content-type', data.content_type);
 			req.send(file);
 		}).fail(function () {
-			alert('failed to create signature for ' + filename);
+			alert('failed to create signature for ' + file.name);
 		});
 	});
 });
