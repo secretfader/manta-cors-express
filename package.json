@@ -1,0 +1,19 @@
+{
+  "name": "manta-cors-express",
+  "version": "0.0.1",
+  "description": "an example of using Express.js to store files with Manta via CORS.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nicholaswyoung/manta-cors-express.git"
+  },
+  "author": "Nicholas Young <nicholas@nicholaswyoung.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicholaswyoung/manta-cors-express/issues"
+  },
+  "homepage": "https://github.com/nicholaswyoung/manta-cors-express"
+}
