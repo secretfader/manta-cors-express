@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/nicholaswyoung/manta-cors-express/issues"
   },
-  "homepage": "https://github.com/nicholaswyoung/manta-cors-express"
+  "homepage": "https://github.com/nicholaswyoung/manta-cors-express",
+  "dependencies": {
+    "mime": "~1.2.11",
+    "express": "~3.5.0",
+    "manta": "~1.2.6"
+  }
 }
