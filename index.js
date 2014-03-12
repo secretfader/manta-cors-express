@@ -2,7 +2,7 @@
  * manta-cors-express
  * (C) Copyright 2014 Nicholas Young
  * Please see the accompanying LICENSE document, or visit
- * http://github.com/nicholaswyoung/manta-cors/express.
+ * http://github.com/nicholaswyoung/manta-cors-express.
  */
 
 var fs 		 = require('fs')
